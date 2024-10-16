@@ -1,0 +1,118 @@
+1. What is a Database?
+A database is a collection of organized information stored in a computer. You can think of it as a digital filing system that helps store and manage different types of data (like numbers, words, images). 
+
+- DBMS (Database Management System) is software that helps you interact with databases. Examples include MySQL, Oracle, and SQL Server.
+- Databases make it easy to manage, store, and retrieve data.
+
+ 2. What is Normalization?
+Normalization is the process of organizing data in a database to reduce duplication (redundancy). It breaks large tables into smaller, related ones, ensuring data is stored efficiently.
+
+- Goal: Reduce redundancy, and avoid problems during insertion, updating, and deletion of data.
+
+ 3. Difference between DBMS and RDBMS
+- DBMS: Stores data in files, suitable for small-scale applications with single users.
+- RDBMS: Stores data in tables, supports multiple users, and relationships between data (using keys like primary and foreign keys).
+- Example of DBMS: File systems.
+- Example of RDBMS: MySQL, SQL Server.
+
+ 4. Codd's Rules for RDBMS
+Dr. E.F. Codd created 12 rules to define what makes a database "relational." These rules ensure the database follows the relational model, where data is stored in tables and managed in a structured way.
+
+Example rules:
+- Information Rule: All data must be stored in tables.
+- Guaranteed Access Rule: Each table must have a primary key to uniquely identify rows.
+
+ 5. What is Data Redundancy?
+Data redundancy happens when the same data is stored in multiple places. It can be intentional (for backup) or unintentional (causing data duplication).
+
+- Benefit: Data redundancy can help in data recovery if something goes wrong.
+
+6. What is a DDL Interpreter?
+The DDL Interpreter processes DDL (Data Definition Language) statements that create or modify the structure of a database, like tables or indexes.
+
+- Example of DDL Statement: 
+CREATE TABLE Employees (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(50)
+);
+
+ 7. What is a DML Compiler?
+The DML (Data Manipulation Language) Compiler processes DML commands (like INSERT, UPDATE, DELETE) that modify data in the database. It optimizes these commands to run efficiently.
+
+ 8. SQL Key Constraints
+SQL key constraints ensure that data is unique and consistent in a table.
+- Primary Key: Uniquely identifies each row. It cannot be NULL.
+
+    CREATE TABLE Students (
+        ID INT PRIMARY KEY,
+        Name VARCHAR(50)
+    );
+    
+- Foreign Key: Links one table to another. 
+    CREATE TABLE Orders (
+        OrderID INT PRIMARY KEY,
+        CustomerID INT,
+        FOREIGN KEY (CustomerID) REFERENCES Customers(ID)
+    );
+    
+
+ 9. What is a Savepoint?
+A Savepoint allows you to set a checkpoint in a transaction to which you can roll back later if needed.
+
+- Syntax: 
+sql
+SAVEPOINT sp1;
+ROLLBACK TO sp1;
+
+
+10. What is a Trigger in SQL?
+ What is a Trigger in SQL?
+
+A trigger in SQL is an automated procedure executed in response to specific events (like INSERT, UPDATE, DELETE) on a table or view. Triggers are used to maintain data integrity, enforce business rules, or automate tasks.
+
+ Why Use Triggers?
+1. Maintain Data Integrity: Ensures rules are enforced during data manipulation.
+2. Automate Auditing: Records changes made to the database.
+3. Business Logic Enforcement: Automates tasks like notifications or data validation.
+
+ Key Characteristics:
+- Automatic Execution: Triggered without user intervention.
+- Before or After Events: Can execute before or after INSERT, UPDATE, or DELETE.
+- Row-Level or Statement-Level: Can apply to each row or an entire statement.
+
+Syntax:
+
+
+CREATE TRIGGER trigger_name
+[ BEFORE | AFTER ] [ INSERT | UPDATE | DELETE ]
+ON table_name
+FOR EACH ROW
+BEGIN
+    -- SQL statements
+END;
+
+ Example:
+
+sql
+CREATE TRIGGER after_insert_student
+AFTER INSERT ON Students
+FOR EACH ROW
+BEGIN
+    INSERT INTO Notifications (Message)
+    VALUES ('New student added');
+END;
+
+
+ Types of Triggers:
+1. BEFORE Trigger: Runs before the event (e.g., for data validation).
+2. AFTER Trigger: Runs after the event (e.g., logging or notifications).
+3. INSTEAD OF Trigger: Replaces the original operation (usually used with views).
+
+ Advantages:
+- Automates tasks and enforces rules consistently.
+- Centralizes business logic at the database level.
+
+ Disadvantages:
+- Can introduce complexity and performance overhead.
+- Difficult to debug due to automatic, behind-the-scenes execution.
+
